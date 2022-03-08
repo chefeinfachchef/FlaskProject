@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.secret_key = "VerySecretSecretKey"
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:root@localhost/todoItemApp"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:root@localhost/flaskproject"
 DBAPISet.init_app(app)
 
 @app.route("/items/delete", methods=["post"])
