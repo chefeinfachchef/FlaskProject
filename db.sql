@@ -13,13 +13,8 @@ create table if not exists Reiseveranstalter (
 
 create table if not exists Reiseteilnehmer_Reise (
 	büroId int auto_increment unique key primary key,
-	bundesland varchar (120),
-	description text,
-	telefonnummer integer,
-	postleitzahl integer,
-    Adresse varchar(120), 
-    Büroname text,
-    Stadt text);
+    foreign key (ReisendeId) references Reiseteilnehmer(ReisendeId),
+    foreign key (ReiseId) references Reise(ReiseId));
 
 create table if not exists Reise (
 	ReiseId int auto_increment unique key primary key,
@@ -27,8 +22,9 @@ create table if not exists Reise (
     Zielort text,
     Land text,
     Dauer time,
-    Hotel integer);
-
+    Hotel integer
+    foreign key (büroId) references Reiseveranstalter (büroId));
+ 
 
 create table if not exists Reiseteilnehmer (
 	ReisendeId int auto_increment unique key primary key,
@@ -38,8 +34,5 @@ create table if not exists Reiseteilnehmer (
     Bundesland text,
     Telefonnummer text);
 
-create Table if not exists Zwischentabelle(
-    ZwischenId int auto_increment unique key primary key);
-    
 
 
