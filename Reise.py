@@ -1,26 +1,36 @@
+import dbm
+from wsgiref.util import request_uri
+from MySQLdb import DBAPISet
+from flask import Flask, redirect, render_template, session
+import flask
+import additem
+import deleteitem
+import edit
+import Reise
+
 app = Flask(__name__)
 app.secret_key = "VerySecretSecretKey"
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:root@localhost/todoItemApp"
-db.init_app(app)
+DBAPISet.init_app(app)
 
 @app.route("/items/delete", methods=["post"])
 def deleteItem():
-    deleteItemFormObj = DeleteItemForm()
+    deleteItemFormObj = deleteItem()
     if deleteItemFormObj.validate_on_submit():
         print("gültig")
         #db objekt holen
         #delete command ausführen
 
         itemIdToDelete = deleteItemFormObj.itemId.data
-        itemToDelete = db.session.query(Todoitem).filter(Todoitem.itemId == itemIdToDelete)
+        itemToDelete = db.session.query(Reise).filter(Reise.itemId == itemIdToDelete)
         itemToDelete.delete()
         
         db.session.commit()
     else:
         print("Fatal Error") 
-    flash("Item with Id {itemIdToDelete} has been deleted")  
+    flask("Item with Id {itemIdToDelete} has been deleted")  
     return redirect("/")
 
 @app.route("/", methods=["get","post"])
@@ -32,7 +42,7 @@ def index():
 
     session.update({"number_of_reloads": reload_count})
 
-    addItemFormObject = AddItemForm()
+    addItemFormObject = addItemFormObject()
     
     if addItemFormObject.validate_on_submit():
         #post kam zurück und ist valide
@@ -42,7 +52,7 @@ def index():
         print(addItemFormObject.isDone.data)
         #hier in DB Speichern
         
-        newItem = Todoitem()
+        newItem = Reise()
         newItem.title = addItemFormObject.title.data
         newItem.description = addItemFormObject.description.data
         newItem.dueDate = addItemFormObject.dueDate.data
@@ -54,7 +64,7 @@ def index():
         return redirect("/")
         
     
-    items = db.session.query(Todoitem).all()
+    items = db.session.query(Reise).all()
     
     return render_template("index.html", \
         headline="Todo Items", \
@@ -63,7 +73,7 @@ def index():
 
 @app.route("/editForm",methods=["post"])
 def submitEditForm():
-    editItemFormObject = EditItemForm()
+    editItemFormObject = edit()
 
     if editItemFormObject.validate_on_submit():
         print("Submit wurde durchgeführt")
@@ -73,7 +83,7 @@ def submitEditForm():
 
         itemId = editItemFormObject.itemId.data
 
-        item_to_edit = db.session.query(Todoitem).filter(Todoitem.itemId == itemId).first()
+        item_to_edit = db.session.query(Reise).filter(Reise.itemId == itemId).first()
         item_to_edit.title = editItemFormObject.title.data
 
         db.session.commit()
@@ -85,12 +95,12 @@ def submitEditForm():
 @app.route("/editForm")
 def showEditForm():
     #hier itemid auslesen (wie kann man bei flask einen get parameter aus dem request auslesen)
-    itemId = request.args["itemid"]
+    itemId = request_uri.args["itemid"]
 
     #item laden (wie kann man einen datensatz lesen)
-    item_to_edit = db.session.query(Todoitem).filter(Todoitem.itemId == itemId).first()
+    item_to_edit = db.session.query(Reise).filter(Reise.itemId == itemId).first()
     
-    editItemFormObject = EditItemForm()
+    editItemFormObject = edit()
     #form befüllen
     editItemFormObject.itemId.data = item_to_edit.itemId
     editItemFormObject.title.data = item_to_edit.title
