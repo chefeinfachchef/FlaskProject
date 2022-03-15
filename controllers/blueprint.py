@@ -1,8 +1,9 @@
+from ast import Add
 from flask import Flask, request
 from flask.templating import render_template
 from flask import Blueprint
 import sqlalchemy
-from Main.additem import AddProductForm
+from Main.additem import AddItemForm
 from db.models import Reise, Reiseteilnehmer, Reiseveranstalter
 from db.models import db
 
@@ -24,7 +25,7 @@ def products_add():
     session : sqlalchemy.orm.scoping.scoped_session = db.session
     productlines = session.query(Reiseteilnehmer).order_by(Reiseteilnehmer.ReisendeId).all()
     
-    addProductForm = AddProductForm()
+    addProductForm = AddItemForm()
 
     if request.method == 'POST':
         
