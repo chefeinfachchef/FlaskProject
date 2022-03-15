@@ -1,11 +1,7 @@
-import dbm
-from wsgiref.util import request_uri
-from MySQLdb import DBAPISet
-from flask import Flask, redirect, render_template, session
-from additem import AddItemForm
-from deleteitem import DeleteItemForm
-from edit import EditItemForm
-from Reise import reise 
+from flask import Flask
+from db.models import db
+from flask.templating import render_template
+from controllers.index import index_blueprint
 
 import sqlalchemy
 app = Flask(__name__)
@@ -16,6 +12,10 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:root@localhost/Reise"
 
 db.init_app(app)
 
+app.register_blueprint(index_blueprint)
+app.register_blueprint(products_blueprint)
+
+app.run(debug=True)
 
 @app.route("/items/delete", methods=["post"])
 def deleteItem():
