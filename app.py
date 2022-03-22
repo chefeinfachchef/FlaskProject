@@ -1,5 +1,5 @@
 from flask import Flask
-from db.models import db
+from models.models import db
 from flask.templating import render_template
 from controllers.blueprint import Reise_blueprint
 from controllers.index_blueprint import index_blueprint

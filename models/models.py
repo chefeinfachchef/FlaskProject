@@ -1,7 +1,6 @@
 # coding: utf-8
 from flask_sqlalchemy import SQLAlchemy
 
-
 db = SQLAlchemy()
 
 
@@ -52,7 +51,7 @@ class Reiseveranstalter(db.Model):
     bundesland = db.Column(db.String(120))
     description = db.Column(db.Text)
     telefonnummer = db.Column(db.Integer)
-    postleitzahl = db.Column(db.Integer)
+    Postleitzahl = db.Column(db.Integer)
     Adresse = db.Column(db.String(120))
     Bueroname = db.Column(db.Text)
     Stadt = db.Column(db.Text)

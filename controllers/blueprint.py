@@ -4,8 +4,8 @@ from flask.templating import render_template
 from flask import Blueprint
 import sqlalchemy
 from Main.additem import AddItemForm
-from db.models import Reise, Reiseteilnehmer, Reiseveranstalter
-from db.models import db
+from models.models import Reise, Reiseteilnehmer, Reiseveranstalter
+from models.models import db
 
 Reise_blueprint = Blueprint('Reise_blueprint', __name__)
 
