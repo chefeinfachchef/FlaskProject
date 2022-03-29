@@ -9,23 +9,23 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Kosten</th>
-      <th scope="col">Zielort</th>
-      <th scope="col">Land</th>
-      <th scope="col">Dauer</th>
-      <th scope="col">Hotel</th>
+      <th scope="col">Vorname</th>
+      <th scope="col">Nachname</th>
+      <th scope="col">Telefonnummer</th>
+      <th scope="col">Adresse</th>
+      <th scope="col">Bundesland</th>
       
     </tr>
   </thead>
   <tbody>
 
-    {% for reise in reise %}
+    {% for reise in reiseteilnehmer %}
     <tr>
-      <td>{{reise.Kosten}}</td>
-      <td>{{reise.Zielort}}</td>
-      <td>{{reise.Land}}</td>
-      <td>{{reise.Dauer}}</td>
-      <td>{{reise.Hotel}}</td>
+      <td>{{reiseteilnehmer.Vorname}}</td>
+      <td>{{reiseteilnehmer.Nachname}}</td>
+      <td>{{reiseteilnehmer.Telefonnummer}}</td>
+      <td>{{reiseteilnehmer.Adresse}}</td>
+      <td>{{reiseteilnehmer.Bundesland}}</td>
       <td>
         <a class="btn btn-outline-secondary" href="/products/edit?productCode={{product.productCode}}">✏️</a>
         <form action="/products/delete" method="post" style="display: inline;">
