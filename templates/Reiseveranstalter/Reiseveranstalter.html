@@ -1,3 +1,47 @@
 {%extends 'base.html'%}
 
 {%block body%}
+
+<h2>Add Product</h2>
+
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Vorname</th>
+      <th scope="col">Nachname</th>
+      <th scope="col">Telefonnummer</th>
+      <th scope="col">Adresse</th>
+      <th scope="col">Bundesland</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for reise in reiseteilnehmer %}
+    <tr>
+      <td>{{reiseteilnehmer.Vorname}}</td>
+      <td>{{reiseteilnehmer.Nachname}}</td>
+      <td>{{reiseteilnehmer.Telefonnummer}}</td>
+      <td>{{reiseteilnehmer.Adresse}}</td>
+      <td>{{reiseteilnehmer.Bundesland}}</td>
+      <td>
+        <a class="btn btn-outline-secondary" href="/products/edit?productCode={{product.productCode}}">✏️</a>
+        <form action="/products/delete" method="post" style="display: inline;">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="productCode" id="productCode" value="{{product.productCode}}">
+          <a class="btn btn-outline-secondary" href="#" onclick="deleteProduct(this); return false;">🗑️</a>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+
+
+  </tbody>
+
+
+  
+</table>
+
+{%endblock%}

@@ -4,28 +4,27 @@ from flask import Blueprint
 import sqlalchemy
 from models.models import Reise, Reiseteilnehmer, Reiseveranstalter 
 
-products_blueprint = Blueprint('blueprint', __name__)
+reise_blueprint = Blueprint('blueprint', __name__)
 
-@products_blueprint.route("/Reisen")
-def products():
-    #workaround für sesssion Autocomplete
+@reise_blueprint.route("/Reisen")
+def Reisen():
+  
     session : sqlalchemy.orm.scoping.scoped_session = db.session
     
-    #alle products laden
-    products = session.query(Product).order_by(Product.productCode).all()
+    Reise = session.query(Reise).order_by(Reise.productCode).all()
 
-    return render_template("reise/reise.html", products = products)
+    return render_template("reise/reise.html", Reise = Reise)
 
 
-@products_blueprint.route("/reise/add", methods=["GET","POST"])
-def products_add():
+@reise_blueprint.route("/reise/add", methods=["GET","POST"])
+def reise_add():
     session : sqlalchemy.orm.scoping.scoped_session = db.session
     
-    add_product_form = ProductForm()
+    add_reise_form = reiseForm()
     
-    productlines = session.query(Productline).order_by(Productline.productLine).all()
+    productlines = session.query(reiseline).order_by(reiseline.productLine).all()
     product_line_list = [(p.productLine, p.productLine) for p in productlines]
-    add_product_form.productLine.choices = product_line_list
+    add_reise_form.productLine.choices = product_line_list
 
     if request.method == 'POST':
         
@@ -110,5 +109,3 @@ def deleteProduct():
         print("Fatal Error")
     
     flash(f"Product with id {product_code_to_delete} has been deleted")    
-
-  
