@@ -3,7 +3,6 @@ from flask import Flask, redirect, request
 from flask.templating import render_template
 from flask import Blueprint
 import sqlalchemy
-from Main.additem import AddItemForm
 from models.models import Reise, Reiseteilnehmer, Reiseveranstalter
 from models.models import db
 
@@ -25,7 +24,7 @@ def products_add():
     session : sqlalchemy.orm.scoping.scoped_session = db.session
     productlines = session.query(Reise).order_by(Reise).all()
     
-    addProductForm = AddItemForm()
+    addProductForm = Reiseveranstalter()
 
     if request.method == 'POST':
         

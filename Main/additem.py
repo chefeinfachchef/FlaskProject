@@ -6,13 +6,13 @@ from models.models import Reise, Reiseteilnehmer, Reiseveranstalter
 
 products_blueprint = Blueprint('blueprint', __name__)
 
-@products_blueprint.route("/Reisen")
+@Reise_blueprint.route("/Reisen")
 def products():
     #workaround für sesssion Autocomplete
     session : sqlalchemy.orm.scoping.scoped_session = db.session
     
     #alle products laden
-    products = session.query(Product).order_by(Product.productCode).all()
+    products = session.query(Reise).order_by(Reise.productCode).all()
 
     return render_template("reise/reise.html", products = products)
 

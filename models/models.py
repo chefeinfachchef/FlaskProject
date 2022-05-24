@@ -1,4 +1,9 @@
 # coding: utf-8
+from __future__ import generator_stop
+from dbm import dumb
+from lib2to3.pgen2.tokenize import generate_tokens
+from platform import win32_edition
+from tkinter.tix import StdButtonBox
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -30,7 +35,7 @@ class Reiseteilnehmer(db.Model):
     Adresse = db.Column(db.String(120))
     Bundesland = db.Column(db.Text)
     Telefonnummer = db.Column(db.Text)
-
+    Kunde = db.Column(db.Text)
 
 
 class ReiseteilnehmerReise(db.Model):
@@ -39,7 +44,7 @@ class ReiseteilnehmerReise(db.Model):
     bueroId = db.Column(db.Integer, primary_key=True, unique=True)
     ReisendeId = db.Column(db.ForeignKey('reiseteilnehmer.ReisendeId'), index=True)
     ReiseId = db.Column(db.ForeignKey('reise.ReiseId'), index=True)
-
+    reiseteilnehmer = db.collom (db.foreign kexy )
     reise = db.relationship('Reise', primaryjoin='ReiseteilnehmerReise.ReiseId == Reise.ReiseId', backref='reiseteilnehmer_reises')
     reiseteilnehmer = db.relationship('Reiseteilnehmer', primaryjoin='ReiseteilnehmerReise.ReisendeId == Reiseteilnehmer.ReisendeId', backref='reiseteilnehmer_reises')
 

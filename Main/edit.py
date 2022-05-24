@@ -5,8 +5,9 @@ from wtforms.fields.simple import BooleanField, StringField, TextAreaField, Hidd
 
 class EditItemForm(FlaskForm):
     itemId = HiddenField("itemId")
-    title = StringField("title")
+    title = StringField ("title")
     description = TextAreaField("description")
     dueDate = DateField("dueDate")
     isDone = BooleanField("isDone")
+
     
