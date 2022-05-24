@@ -9,5 +9,3 @@ class EditItemForm(FlaskForm):
     description = TextAreaField("description")
     dueDate = DateField("dueDate")
     isDone = BooleanField("isDone")
-
-    
